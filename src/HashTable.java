@@ -1,5 +1,5 @@
 public class HashTable {
-    private static final int SIZE = 101; // prime number, reduces collisions
+    private static final int SIZE = 101;
     private Student[] table;
 
     public HashTable() {
@@ -10,12 +10,11 @@ public class HashTable {
         return id % SIZE;
     }
 
-    // Insert using linear probing (collision handling)
     public void insert(Student student) {
-        int index = hash(student.studentId);
+        int index = hash(student.id);
         int originalIndex = index;
         while (table[index] != null) {
-            if (table[index].studentId == student.studentId) {
+            if (table[index].id == student.id) {
                 System.out.println("Duplicate ID in HashTable!");
                 return;
             }
@@ -28,12 +27,11 @@ public class HashTable {
         table[index] = student;
     }
 
-    // Search - O(1) average
     public Student search(int id) {
         int index = hash(id);
         int originalIndex = index;
         while (table[index] != null) {
-            if (table[index].studentId == id) return table[index];
+            if (table[index].id == id) return table[index];
             index = (index + 1) % SIZE;
             if (index == originalIndex) break;
         }
@@ -44,7 +42,7 @@ public class HashTable {
         int index = hash(id);
         int originalIndex = index;
         while (table[index] != null) {
-            if (table[index].studentId == id) {
+            if (table[index].id == id) {
                 table[index] = null;
                 return;
             }

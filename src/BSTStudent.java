@@ -11,48 +11,45 @@ public class BSTStudent {
 
     private Node root;
 
-    // Insert
     public void insert(Student student) {
         root = insertRec(root, student);
     }
 
     private Node insertRec(Node node, Student student) {
         if (node == null) return new Node(student);
-        if (student.studentId < node.student.studentId)
+        if (student.id < node.student.id)
             node.left = insertRec(node.left, student);
-        else if (student.studentId > node.student.studentId)
+        else if (student.id > node.student.id)
             node.right = insertRec(node.right, student);
         else
             System.out.println("Duplicate Student ID! Insert failed.");
         return node;
     }
 
-    // Search
     public Student search(int id) {
         return searchRec(root, id);
     }
 
     private Student searchRec(Node node, int id) {
         if (node == null) return null;
-        if (id == node.student.studentId) return node.student;
-        return id < node.student.studentId ? searchRec(node.left, id) : searchRec(node.right, id);
+        if (id == node.student.id) return node.student;
+        return id < node.student.id ? searchRec(node.left, id) : searchRec(node.right, id);
     }
 
-    // Delete
     public void delete(int id) {
         root = deleteRec(root, id);
     }
 
     private Node deleteRec(Node node, int id) {
         if (node == null) return null;
-        if (id < node.student.studentId) node.left = deleteRec(node.left, id);
-        else if (id > node.student.studentId) node.right = deleteRec(node.right, id);
+        if (id < node.student.id) node.left = deleteRec(node.left, id);
+        else if (id > node.student.id) node.right = deleteRec(node.right, id);
         else {
             if (node.left == null) return node.right;
             if (node.right == null) return node.left;
             Node successor = findMin(node.right);
             node.student = successor.student;
-            node.right = deleteRec(node.right, successor.student.studentId);
+            node.right = deleteRec(node.right, successor.student.id);
         }
         return node;
     }
@@ -62,7 +59,6 @@ public class BSTStudent {
         return node;
     }
 
-    // In-order display (sorted by ID)
     public void displayInOrder() {
         inOrderRec(root);
     }
